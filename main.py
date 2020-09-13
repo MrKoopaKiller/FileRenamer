@@ -19,8 +19,8 @@ def get_data():
 #   Return a list with all modified files
 #
 def rename_files():
-  dir = Path(env('DEST_PATH'))
-  files = dir.glob('**/*.txt')
+  dest_dir = Path(env('DEST_PATH'))
+  files = dest_dir.glob('**/*.txt')
   renamed_files=[]
   for f in files:
       p = Path(f)
