@@ -19,7 +19,12 @@ def get_data():
 #   Return a list with all modified files
 #
 def rename_files():
-  dest_dir = Path(env('DEST_PATH'))
+  try:
+    dest_dir = Path(env('DEST_PATH'))
+  except TypeError:
+    sys.stdout.write(get_data() + " ERROR: DATA_PATH variable is empty")
+    sys.exit(1)
+
   files = dest_dir.glob('**/*.txt')
   renamed_files=[]
   for f in files:
@@ -59,9 +64,13 @@ def send_email(log_message):
   msg = log_message
   smtp_port    = env('SMTP_PORT')
   smtp_server  = env('SMTP_SERVER')
-  smtp_passwd  = b64decode(env('SMTP_PASSWORD')).decode('ascii')
   smtp_user    = env('SMTP_USER')
   email_dest   = env('EMAIL_TO')
+  try:
+    smtp_passwd  = b64decode(env('SMTP_PASSWORD')).decode('ascii')
+  except TypeError:
+    sys.stdout.write(get_data() + " ERROR: Failed to send email. Invalid value for SMTP_PASSWORD")
+    sys.exit(1)
 
   message = """\
 To: me <{TO}>
