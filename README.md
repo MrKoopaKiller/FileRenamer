@@ -14,6 +14,13 @@ The destination path and smtp settings are specified by `environment variables`.
 
 The docker volume and environment variables must be used in `docker run` command:
 
+`DEST_PATH` is the path inside the container where the script will look for files to rename.
+The other variables are used to send an email that contais all files renamed.
+
+In the example below, the directory `/myfiles/data` will be mounted into the container in the path `/data`.
+
+FileRenamer will rename recursively all file extensions in `/data` directory.
+
 ```
 docker run -v /myfiles/data:/data \
   --env DEST_PATH=/data \
@@ -34,17 +41,18 @@ docker run --env-file env.list -v /myfiles/data:/data rabeloo/file-renamer:lates
 ### Building image
 In order to build your custom image, just clone this repository and execute `docker build` command:
 
-``` 
+```
 $ git clone https://github.com/MrKoopaKiller/FileRenamer.git
 $ cd FileRenamer
 
 $ docker build -t file-renamer:latest .
-``` 
+```
 
 ## Variables
 | Variable | Content | Example
 |---|:---:| :---: |
-| `SMTP_SERVER`  | SMTP server | `smtp.gmail.com` 
+| `DEST_PATH`  | The path in container the script will rename recursively the files. | `/data/files` |
+| `SMTP_SERVER`  | SMTP server | `smtp.gmail.com`|
 | `SMTP_PORT`  | SMTP server port |`587`  |
 | `SMTP_USER`  | SMTP server user | `mymail@gmail.com` |
 | `SMTP_PASSWORD`  | SMTP server password **encoded in base64**. Details below. | `TXlTM2NyZXRQQHNzd29yZA==`
