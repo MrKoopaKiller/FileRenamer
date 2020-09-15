@@ -22,8 +22,7 @@ def rename_files():
   try:
     dest_dir = Path(env('DEST_PATH'))
   except TypeError:
-    sys.stdout.write(get_data() + " ERROR: DATA_PATH variable is empty")
-    sys.exit(1)
+    sys.exit(get_data() + " ERROR: DATA_PATH variable is empty")
 
   new_ext = env('NEW_EXT')
   old_ext = env('OLD_EXT')
@@ -40,8 +39,7 @@ def rename_files():
       newf = p.rename(p.with_suffix("." + new_ext))
       renamed_files.append(newf)
   if not renamed_files:
-      sys.stdout.write(get_data() + " INFO: No files to rename")
-      sys.exit(0)
+      sys.exit(get_data() + " INFO: No files to rename")
   else:
     return renamed_files
 
@@ -77,8 +75,7 @@ def send_email(log_message):
   try:
     smtp_passwd  = b64decode(env('SMTP_PASSWORD')).decode('ascii')
   except TypeError:
-    sys.stdout.write(get_data() + " ERROR: Failed to send email. Invalid value for SMTP_PASSWORD")
-    sys.exit(1)
+    sys.exit(get_data() + " ERROR: Failed to send email. Invalid value for SMTP_PASSWORD")
 
   message = """\
 To: me <{TO}>
@@ -93,11 +90,11 @@ Subject: [FileRenamer] Files renamed
         mail.login(smtp_user, smtp_passwd)
         mail.sendmail(smtp_user, email_dest, message)
   except smtplib.SMTPAuthenticationError:
-    sys.stdout.write(get_data() + " ERROR: Failed to send email. Authentication failed")
+    sys.exit(get_data() + " ERROR: Failed to send email. Authentication failed")
   except gaierror:
-    sys.stdout.write(get_data() + " ERROR: Failed to send email. Invalid SMTP settings")
+    sys.exit(get_data() + " ERROR: Failed to send email. Invalid SMTP settings")
   except TimeoutError:
-    sys.stdout.write(get_data() + " ERROR: Failed to send email. Timeout - connection failed")
+    sys.exit(get_data() + " ERROR: Failed to send email. Timeout - connection failed")
 
   sys.stdout.write(get_data() + " INFO: Mail sent")
 # Function __main__:
