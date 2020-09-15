@@ -2,11 +2,11 @@
 
 # FileRenamer
 
-Rename file extension from `.txt` to `.cvs` recursively into the user specified directory and send an email with the list of the renamed files.
+Rename file extension from `.txt` to `.csv` recursively into the user specified directory and send an email with the list of the renamed files.
 
 ## About
 
-**FileRenamer** will rename all file extensions from `.txt` to `.cvs` from the user specified directory. After renamed all files, an email which renamed files are sent.
+**FileRenamer** will rename all file extensions from `.txt` to `.csv` from the user specified directory. After renamed all files, an email which renamed files are sent.
 
 The destination path and smtp settings are specified by `environment variables`. See details below.
 
