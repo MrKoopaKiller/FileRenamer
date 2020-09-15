@@ -25,11 +25,19 @@ def rename_files():
     sys.stdout.write(get_data() + " ERROR: DATA_PATH variable is empty")
     sys.exit(1)
 
-  files = dest_dir.glob('**/*.txt')
+  new_ext = env('NEW_EXT')
+  old_ext = env('OLD_EXT')
+
+  if not old_ext:
+    sys.exit(get_data() + " ERROR: OLD_EXT variable is empty")
+  if not new_ext:
+    sys.exit(get_data() + " ERROR: NEW_EXT variable is empty")
+
+  files = dest_dir.glob("**/*." + old_ext)
   renamed_files=[]
   for f in files:
       p = Path(f)
-      newf = p.rename(p.with_suffix('.csv'))
+      newf = p.rename(p.with_suffix("." + new_ext))
       renamed_files.append(newf)
   if not renamed_files:
       sys.stdout.write(get_data() + " INFO: No files to rename")
