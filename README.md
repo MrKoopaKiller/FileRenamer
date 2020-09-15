@@ -24,6 +24,8 @@ FileRenamer will rename recursively all file extensions in `/data` directory.
 ```
 docker run -v /myfiles/data:/data \
   --env DEST_PATH=/data \
+  --env OLD_EXT=txt \
+  --env NEW_EXT=csv \
   --env SMTP_SERVER=smtp.gmail.com \
   --env SMTP_PORT=587 \
   --env SMTP_USER=mymail@gmail.com \
@@ -52,6 +54,8 @@ $ docker build -t file-renamer:latest .
 | Variable | Content | Example
 |---|:---:| :---: |
 | `DEST_PATH`  | The path in container the script will rename recursively the files. | `/data/files` |
+| `OLD_EXT`  | The old file extension | `txt`|
+| `NEW_EXT`  | The new file extension to be renamed | `csv`|
 | `SMTP_SERVER`  | SMTP server | `smtp.gmail.com`|
 | `SMTP_PORT`  | SMTP server port |`587`  |
 | `SMTP_USER`  | SMTP server user | `mymail@gmail.com` |
